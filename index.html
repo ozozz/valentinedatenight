@@ -5,17 +5,20 @@
 <title>Valentine Invitation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Signature Font -->
+<link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Georgia", serif;
 }
 
 body {
   height: 100vh;
-  background: linear-gradient(135deg, #ffd1dc, #ff9aa2);
+  background: url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
+              #f6f1eb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,30 +28,26 @@ body {
 /* ---------- Envelope ---------- */
 .envelope-wrapper {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  height: 220px;
   cursor: pointer;
-  transition: transform 0.6s ease;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.envelope-wrapper.hide {
+  transform: scale(0.8);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .envelope {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #f5f5f5;
-  border-radius: 6px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  background: #b11226;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
   overflow: hidden;
-}
-
-.envelope::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, transparent 50%, #e0e0e0 50%);
-  clip-path: polygon(0 0, 100% 0, 50% 60%);
 }
 
 .flap {
@@ -56,58 +55,59 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background: #eaeaea;
+  background: #c4162d;
   clip-path: polygon(0 0, 100% 0, 50% 55%);
   transform-origin: top;
-  transition: transform 0.8s ease;
+  transition: transform 0.9s ease;
   z-index: 3;
 }
 
 /* ---------- Card ---------- */
 .card {
   position: absolute;
-  width: 260px;
-  height: 160px;
-  background: #fff;
+  width: 280px;
+  height: 180px;
+  background: #fffdf9;
   top: 20px;
   left: 20px;
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  text-align: center;
+  font-family: 'Allura', cursive;
+  font-size: 26px;
+  color: #b11226;
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
+  transform: translateY(50px);
+  transition: all 0.9s ease;
   z-index: 2;
 }
 
-/* ---------- Open State ---------- */
+/* ---------- Open Envelope ---------- */
 .envelope-wrapper.open .flap {
   transform: rotateX(180deg);
 }
 
 .envelope-wrapper.open .card {
   opacity: 1;
-  transform: translateY(-40px);
+  transform: translateY(-50px);
 }
 
 /* ---------- Invitation Page ---------- */
 .invitation {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #ffb7c5, #ff758f);
+  background: url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
+              #f6f1eb;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  color: #fff;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
 }
 
 .invitation.show {
@@ -115,13 +115,19 @@ body {
   pointer-events: auto;
 }
 
+.invitation h1,
+.invitation p {
+  font-family: 'Allura', cursive;
+  color: #b11226;
+}
+
 .invitation h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
+  font-size: 56px;
+  margin-bottom: 25px;
 }
 
 .invitation p {
-  font-size: 22px;
+  font-size: 34px;
   line-height: 1.6;
 }
 </style>
@@ -134,17 +140,17 @@ body {
   <div class="envelope"></div>
   <div class="flap"></div>
   <div class="card" id="card">
-    Tap to open 💌
+    Tap to open
   </div>
 </div>
 
-<!-- Invitation Page -->
+<!-- Invitation -->
 <div class="invitation" id="invitation">
   <h1>You are invited</h1>
   <p>
     for a Valentine Date Night<br><br>
-    <strong>14 / 2 / 2026</strong><br><br>
-    Arigato Sushi Grill 🍣
+    14 / 2 / 2026<br><br>
+    Arigato Sushi Grill
   </p>
 </div>
 
@@ -159,7 +165,10 @@ envelope.addEventListener("click", () => {
 
 card.addEventListener("click", (e) => {
   e.stopPropagation();
-  invitation.classList.add("show");
+  envelope.classList.add("hide");
+  setTimeout(() => {
+    invitation.classList.add("show");
+  }, 800);
 });
 </script>
 
