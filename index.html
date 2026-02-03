@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Invitation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd1dc, #ff9aa2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ---------- Envelope ---------- */
+.envelope-wrapper {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+}
+
+.envelope {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  border-radius: 6px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 50%, #e0e0e0 50%);
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #eaeaea;
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index: 3;
+}
+
+/* ---------- Card ---------- */
+.card {
+  position: absolute;
+  width: 260px;
+  height: 160px;
+  background: #fff;
+  top: 20px;
+  left: 20px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+  z-index: 2;
+}
+
+/* ---------- Open State ---------- */
+.envelope-wrapper.open .flap {
+  transform: rotateX(180deg);
+}
+
+.envelope-wrapper.open .card {
+  opacity: 1;
+  transform: translateY(-40px);
+}
+
+/* ---------- Invitation Page ---------- */
+.invitation {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ffb7c5, #ff758f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.invitation.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.invitation h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.invitation p {
+  font-size: 22px;
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Envelope -->
+<div class="envelope-wrapper" id="envelope">
+  <div class="envelope"></div>
+  <div class="flap"></div>
+  <div class="card" id="card">
+    Tap to open 💌
+  </div>
+</div>
+
+<!-- Invitation Page -->
+<div class="invitation" id="invitation">
+  <h1>You are invited</h1>
+  <p>
+    for a Valentine Date Night<br><br>
+    <strong>14 / 2 / 2026</strong><br><br>
+    Arigato Sushi Grill 🍣
+  </p>
+</div>
+
+<script>
+const envelope = document.getElementById("envelope");
+const card = document.getElementById("card");
+const invitation = document.getElementById("invitation");
+
+envelope.addEventListener("click", () => {
+  envelope.classList.add("open");
+});
+
+card.addEventListener("click", (e) => {
+  e.stopPropagation();
+  invitation.classList.add("show");
+});
+</script>
+
+</body>
+</html>
